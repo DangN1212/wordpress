@@ -18,7 +18,15 @@ get_header(); ?>
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
+ <?php
+  while(have_posts()) :
+    the_post();
 
+    echo '<h2>' . $post->post_title .'</h2>';
+
+
+  endwhile;
+  ?>
 		<?php if ( have_posts() ) : ?>
 
 			<?php if ( is_home() && ! is_front_page() ) : ?>
