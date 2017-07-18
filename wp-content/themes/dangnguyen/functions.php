@@ -74,3 +74,70 @@ if(!isset($content_width)){
     }
     add_action('init','dangnguyen_theme_setup');
    }
+
+/*----
+ Template functions
+ ----*/
+if(!function_exists('load_header')){
+ function load_header(){ ?>
+
+ <div class="site-name">
+ <?php
+   if( is_home()){
+       printf('<h1><a href="%1$s" title="%2$s">%3$s</a></h1>',
+           get_bloginfo('url'),
+           get_bloginfo('description'),
+           get_bloginfo('sitename'));
+   }else{
+       printf('<p><a href="%1$s" title="%2$s">%3$s</a></p>',
+           get_bloginfo('url'),
+           get_bloginfo('description'),
+           get_bloginfo('sitename'));
+   }?>
+   </div>
+<?php
+    }
+   }
+
+/*---
+Thiet lap menu
+---*/
+if(!function_exists('load_menu')){
+    function load_menu($slug){
+        $menu = array('theme_location'=> $slug,
+                        'container' => 'nav',
+                        'container_class' => $slug,
+            );
+        wp_nav_menu($menu);
+    }
+}
+
+
+/**
+Ham tao phan trang
+**/
+
+if( !function_exists('show_pagination') ) {
+
+ function show_pagination(){
+  if( $GLOBALS['wp_query']->max_num_pages < 2 ) {
+   return '';
+  }
+  ?>
+
+  <nav class="pagination" role="navigation">
+  <?php if( get_next_posts_link() ): ?>
+  <div class="prev">
+   <?php next_posts_link( __('Older Posts','dangnguyen')); ?>
+  </div>
+  <?php endif; ?>
+  <?php  if( get_previous_posts_link()): ?>
+<div class="next"><?php previous_posts_link( __('Newest Posts','dangnguyen')); ?>
+</div>
+<?php endif; ?>
+
+  </nav>
+  <?php
+ }
+}
+?>
