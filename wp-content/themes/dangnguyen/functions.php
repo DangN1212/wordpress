@@ -120,7 +120,7 @@ Ham tao phan trang
 if( !function_exists('show_pagination') ) {
 
  function show_pagination(){
-  if( $GLOBALS['wp_query']->max_num_pages < 2 ) {
+  if( $GLOBALS['wp_query']->max_num_pages < 3 ) {
    return '';
   }
   ?>
@@ -139,5 +139,25 @@ if( !function_exists('show_pagination') ) {
   </nav>
   <?php
  }
+}
+
+
+/**
+Ham hien thi thumbnail
+    @ Hàm hiển thị ảnh thumbnail của post.
+    @ Ảnh thumbnail sẽ không được hiển thị trong trang single
+    @ Nhưng sẽ hiển thị trong single nếu post đó có format là Image
+    @ dangnguyen_thumbnail( $size )
+**/
+if(!function_exists('dangnguyen_thumbnail')){
+    function dangnguyen_thumbnail($size){
+
+        if( !is_single()  && !post_password_required() || has_post_format('image') ) : ?>
+            <figure class="post-thumbnail"><?php the_post()->title; ?></figure>
+
+<?php
+    echo "1";
+    endif;
+    }
 }
 ?>
