@@ -151,13 +151,63 @@ Ham hien thi thumbnail
 **/
 if(!function_exists('dangnguyen_thumbnail')){
     function dangnguyen_thumbnail($size){
-
         if( !is_single()  && !post_password_required() || has_post_format('image') ) : ?>
-            <figure class="post-thumbnail"><?php the_post()->title; ?></figure>
-
+            <figure class="post-thumbnail"><?php the_post_thumbnail($size); ?></figure>
 <?php
-    echo "1";
     endif;
     }
 }
-?>
+/**
+@ Hàm hiển thị tiêu đề của post trong .entry-header
+@ Tiêu đề của post sẽ là nằm thẻ h1 ở trang single
+@ Còn ở trang chủ và trang lưu trữ, nó sẽ là h2
+@ dangnguyen_entry_header
+**/
+if(!function_exists('dangnguyen_entry_header')){
+    function dangnguyen_entry_header(){
+        if(is_single()){?>
+            <h1 class="entry-title">
+                <a href=" <?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">
+                    <?php the_title(); ?>
+                </a>
+            </h1>
+        <?php }else{ ?>
+            <h2 class="entry-title">
+                <a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php the_title_attribute();?>">
+                    <?php the_title();?>
+                </a>
+            </h2>
+        <?php
+        }
+    }
+}
+
+/**
+@Hàm hiển thị thông tin của post (Post meta)
+@dangnguyen_entry_meta()
+**/
+if(!function_exists('dangnguyen_entry_meta')){
+    function dangnguyen_entry_meta(){
+        if(!is_page()){?>
+            <div class="entry-meta">
+                <?php
+                    printf( __('<span class="author">Posted by %1$s </span>','dangnguyen'),get_the_author());
+                    printf( __('<span class="date-published"> at %1$s </span>','dangnguyen'),get_the_date());
+                    printf( __('<span class="category"> in %1$s </span>','dangnguyen'),get_the_category_list(','));
+                    if(comments_open()):
+                        echo '<span class="meta-reply">';
+                            comments_popup_link(
+                                __('Leave a comment','dangnguyen'),
+                                __('One comment','danguyen'),
+                                __('% comments','dangnguyen'),
+                                __('Read all comments','dangnguyen')
+                                );
+                        echo '</span>';
+                    endif;
+                ?>
+            </div>
+       <?php }
+    }
+}
+
+
