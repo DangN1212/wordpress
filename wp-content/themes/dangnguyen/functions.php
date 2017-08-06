@@ -210,4 +210,38 @@ if(!function_exists('dangnguyen_entry_meta')){
     }
 }
 
+/*
+* Thêm chữ Read More và except
+*/
+function dangnguyen_readmore(){
+    return '...<a class="read-more" href="'.get_permalink(get_the_ID()).'">'.__('Read More','dangnguyen').'</a>';
+}
+add_filter('excerpt_more','dangnguyen_readmore');
+/**
+@ Hàm hiển thị nội dung post type
+@ Hàm này sẽ hiển thị đoạn rút gọn của post ngoài trang chủ (the excerpt)
+@ Nhưng nó sẽ hiển thị toàn bộ nội dung của post ở trang single (the concent)
+@ danguyen_entry_content()
+**/
+
+if(!function_exists('dangnguyen_entry_content')){
+    function dangnguyen_entry_content(){
+        if(!is_single()){
+            the_excerpt();
+        }else{
+            the_content();
+            /*
+        * Code hiển thị phân trang trong post type
+        */
+        $link_pages = array(
+            'before' => __('<p>Page:','dangnguyen'),
+            'after' => __('</p>'),
+            'nextpagelink' => __('Next page','dangnguyen'),
+            'previouspagelink' => __('Previous page','dangnguyen')
+            );
+        wp_link_pages($link_pages);
+        }
+    }
+}
+
 
