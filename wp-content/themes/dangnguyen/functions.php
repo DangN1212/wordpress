@@ -226,7 +226,7 @@ add_filter('excerpt_more','dangnguyen_readmore');
 
 if(!function_exists('dangnguyen_entry_content')){
     function dangnguyen_entry_content(){
-        if(!is_single()){
+        if(!is_single()|| !is_page()){
             the_excerpt();
         }else{
             the_content();
