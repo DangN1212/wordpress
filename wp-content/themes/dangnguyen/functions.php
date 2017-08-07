@@ -230,6 +230,7 @@ if(!function_exists('dangnguyen_entry_content')){
             the_excerpt();
         }else{
             the_content();
+            echo 1;
             /*
         * Code hiển thị phân trang trong post type
         */
@@ -245,3 +246,15 @@ if(!function_exists('dangnguyen_entry_content')){
 }
 
 
+/**
+dangnguyen_entry_tag = hien thi tag
+**/
+if(!function_exists('dangnguyen_entry_tag')){
+  function dangnguyen_entry_tag(){
+    if(has_tag()){
+      echo '<div class="entry-tag">';
+      printf(__('Tagged in %1$s', 'dangnguyen'),get_the_tag_list('',','));
+      echo '</div>';
+    }
+  }
+}
